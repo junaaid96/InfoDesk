@@ -1,0 +1,56 @@
+<div class="container mt-5">
+
+  <pre>{{ userForm.value | json }}</pre>
+
+  <form
+    [formGroup]="userForm"
+    (ngSubmit)="$event.preventDefault(); submitForm()"
+  >
+    <div class="mb-3">
+      <label class="form-label">Name: </label>
+      <input type="text" class="form-control" formControlName="userName"/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Email: </label>
+      <input type="email" class="form-control" formControlName="userEmail"/>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between">
+      <label class="form-label">Academic: </label>
+      <div formArrayName="userAcademic">
+        <div *ngFor="let academic of userAcademic.controls; let i = index" [formGroupName]="i" class="d-flex">
+          <div>
+            <label class="form-label">Institute: </label>
+            <select type="text" class="form-control" formControlName="institute">
+              <option selected>Select Institute</option>
+              <option *ngFor="let institute of institutes">{{ institute }}</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Department: </label>
+            <select type="text" class="form-control" formControlName="department">
+              <option selected>Select Department</option>
+              <option
+                *ngFor="let department of departments"
+              >{{ department }}
+              </option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">CGPA: </label>
+            <input type="number" class="form-control" formControlName="cgpa"/>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-success" (click)="addAcademic()">
+        +
+      </button>
+    </div>
+
+    <div class="my-5 d-flex align-items-center justify-content-center">
+      <button type="submit" class="btn btn-primary w-25" (click)="submitForm()">
+        Submit
+      </button>
+    </div>
+  </form>
+  <div>{{ totalUser.length }}</div>
+</div>
