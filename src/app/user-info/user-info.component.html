@@ -14,7 +14,7 @@
       <label class="form-label">Email: </label>
       <input type="email" class="form-control" formControlName="userEmail"/>
     </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between">
+    <div class="mb-3 d-flex align-items-center gap-5">
       <label class="form-label">Academic: </label>
       <div formArrayName="userAcademic">
         <div *ngFor="let academic of userAcademic.controls; let i = index" [formGroupName]="i" class="d-flex">
@@ -41,9 +41,6 @@
           </div>
         </div>
       </div>
-      <button type="button" class="btn btn-success" (click)="addAcademic()">
-        +
-      </button>
     </div>
 
     <div class="my-5 d-flex align-items-center justify-content-center">
@@ -52,5 +49,4 @@
       </button>
     </div>
   </form>
-  <div>{{ totalUser.length }}</div>
 </div>

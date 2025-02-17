@@ -1,0 +1,25 @@
+<div class="text-center">
+  <p *ngIf="totalUser.length === 0">No user found!</p>
+  <p *ngIf="totalUser.length > 0">Total User Found: {{ totalUser.length }}</p>
+</div>
+
+<table class="table mt-3" *ngIf="totalUser.length > 0">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of totalUser; let i = index">
+    <td>{{ user.name }}</td>
+    <td>{{ user.email }}</td>
+    <td>
+      <button type="button" class="btn btn-warning btn-sm" (click)="updateUserEvent(i)">Update
+      </button>
+      <button type="button" class="btn btn-danger btn-sm" (click)="removeUserEvent(i)">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
