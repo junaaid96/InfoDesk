@@ -2,6 +2,7 @@ import {Component, ElementRef, Injectable, OnInit, ViewChild} from '@angular/cor
 import {UserService} from "../user.service";
 import {User} from "../model/user.model";
 import {UserInfoComponent} from "../user-info/user-info.component";
+import {Academic} from "../model/academic.model";
 
 @Component({
   selector: 'user-list',
@@ -21,12 +22,14 @@ export class UserListComponent implements OnInit {
 
   updateUserEvent(i: number) {
     const user = this.userService.getAUser(i);
-    console.log('Before: ', user);
+
     const newName = window.prompt('Name: ', user.name);
     const newEmail = window.prompt('Email: ', user.email);
+    window.prompt(JSON.stringify(user.academic));
+
     user.name = newName;
     user.email = newEmail;
-    console.log('After: ', user);
+
     if (user && this.userInfoComponent) {
       this.userInfoComponent.setUserForm(user);
     }

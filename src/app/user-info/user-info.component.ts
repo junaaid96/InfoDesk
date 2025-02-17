@@ -51,13 +51,15 @@ export class UserInfoComponent implements OnInit {
 
   submitForm() {
     const formValue = this.userForm.value;
-    console.log('user-info', formValue);
+
     const user = {
       name: formValue.userName,
       email: formValue.userEmail,
       academic: formValue.userAcademic
     };
+
     this.userService.addUser(user);
+
     this.router.navigate(['user-list']);
   }
 }
