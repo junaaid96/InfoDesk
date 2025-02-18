@@ -69,7 +69,7 @@ export class UserInfoComponent implements OnInit {
       this.userService.addUser(user);
       this.router.navigate(['user-list']);
     } else {
-      console.log(this.userForm.controls)
+      console.log(this.userForm.controls);
     }
   }
 
@@ -86,7 +86,7 @@ export class UserInfoComponent implements OnInit {
       this.userService.updateUser(this.userIndex, updatedUser);
       this.router.navigate(['user-list']);
     } else {
-      console.log(this.userForm.controls)
+      console.log(this.userForm.controls);
     }
   }
 }
