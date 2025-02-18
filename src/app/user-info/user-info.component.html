@@ -1,6 +1,6 @@
-<div class="container mt-5">
+<div class="container mt-5 w-75 m-auto p-5 border">
 
-  <pre>{{ userForm.value | json }}</pre>
+  <!--  <pre>{{ userForm.value | json }}</pre>-->
 
   <form
     [formGroup]="userForm"
@@ -21,17 +21,15 @@
           <div>
             <label class="form-label">Institute: </label>
             <select type="text" class="form-control" formControlName="institute">
-              <option selected>Select Institute</option>
-              <option *ngFor="let institute of institutes">{{ institute }}</option>
+              <option selected [value]="null" disabled>Select Institute</option>
+              <option *ngFor="let institute of institutes" [value]="institute">{{ institute }}</option>
             </select>
           </div>
           <div>
             <label class="form-label">Department: </label>
             <select type="text" class="form-control" formControlName="department">
-              <option selected>Select Department</option>
-              <option
-                *ngFor="let department of departments"
-              >{{ department }}
+              <option selected [value]="null" disabled>Select Department</option>
+              <option *ngFor="let department of departments" [value]="department">{{ department }}
               </option>
             </select>
           </div>
@@ -44,8 +42,8 @@
     </div>
 
     <div class="my-5 d-flex align-items-center justify-content-center">
-      <button type="submit" class="btn btn-primary w-25" (click)="submitForm()">
-        Submit
+      <button type="submit" class="btn btn-primary w-25" (click)="getEditingStatus? updateForm() : submitForm()">
+        {{ getEditingStatus ? "Update" : "Submit" }}
       </button>
     </div>
   </form>

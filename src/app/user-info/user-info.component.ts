@@ -4,7 +4,6 @@ import {Academic} from '../model/academic.model';
 import {Router} from '@angular/router';
 import {UserService} from "../user.service";
 import {User} from "../model/user.model";
-import {state} from "@angular/animations";
 
 @Component({
   selector: 'user-info',
@@ -13,22 +12,21 @@ import {state} from "@angular/animations";
 })
 
 export class UserInfoComponent implements OnInit {
+  getEditingStatus = this.userService.getEditingStaus();
   institutes: string[] = this.userService.getInstitutesList();
   departments: string[] = this.userService.getDepartmentsList();
+  userIndex: number;
 
   constructor(private router: Router, private userService: UserService) {
   }
 
   ngOnInit(): void {
+    const user = this.userService.getUser();
+    if (user) {
+      this.setUserForm(user);
+      this.userIndex = this.userService.getUserIndex(user);
+    }
   }
-
-  // ngOnInit(): void {
-  //   const navigation = this.router.getCurrentNavigation();
-  //   const state = navigation?.extras.state as { user: User };
-  //   if (state && state.user) {
-  //     this.setUserForm(state.user);
-  //   }
-  // }
 
   userForm = new FormGroup({
     userName: new FormControl(),
@@ -68,9 +66,19 @@ export class UserInfoComponent implements OnInit {
     };
 
     this.userService.addUser(user);
-
     this.router.navigate(['user-list']);
   }
 
-  protected readonly state = state;
+  updateForm() {
+    const formValue = this.userForm.value;
+
+    const updatedUser = {
+      name: formValue.userName,
+      email: formValue.userEmail,
+      academic: formValue.userAcademic
+    };
+
+    this.userService.updateUser(this.userIndex, updatedUser);
+    this.router.navigate(['user-list']);
+  }
 }

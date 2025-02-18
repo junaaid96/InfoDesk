@@ -22,20 +22,23 @@ export class UserListComponent implements OnInit {
   }
 
   updateUserEvent(i: number) {
-    const user = this.userService.getAUser(i);
+    const user = this.userService.getUserByIndex(i);
 
-    // this.router.navigate(['user-info'], { state: { user } });
+    this.userService.setUser(user);
+    this.router.navigate(['user-info']);
 
-    const newName = window.prompt('Name: ', user.name);
-    const newEmail = window.prompt('Email: ', user.email);
-    // window.prompt(JSON.stringify(user.academic));
+    this.userService.setEditingStatus(true);
 
-    user.name = newName;
-    user.email = newEmail;
-
-    if (user && this.userInfoComponent) {
-      this.userInfoComponent.setUserForm(user);
-    }
+    // const newName = window.prompt('Name: ', user.name);
+    // const newEmail = window.prompt('Email: ', user.email);
+    // // window.prompt(JSON.stringify(user.academic));
+    //
+    // user.name = newName;
+    // user.email = newEmail;
+    //
+    // if (user && this.userInfoComponent) {
+    //   this.userInfoComponent.setUserForm(user);
+    // }
   }
 
   removeUserEvent(i: number) {
