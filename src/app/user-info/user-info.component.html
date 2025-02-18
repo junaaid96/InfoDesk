@@ -17,7 +17,7 @@
     <div class="mb-3 d-flex gap-5">
       <label class="form-label">Academic: </label>
       <div formArrayName="userAcademic">
-        <div *ngFor="let academic of userAcademic.controls; let i = index" [formGroupName]="i" class="d-flex">
+        <div *ngFor="let academic of userAcademic.controls; let i = index" [formGroupName]="i" class="d-flex gap-3">
           <div>
             <label class="form-label">Institute: </label>
             <select type="text" class="form-control" formControlName="institute">

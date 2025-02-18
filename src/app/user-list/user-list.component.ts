@@ -3,6 +3,7 @@ import {UserService} from "../user.service";
 import {User} from "../model/user.model";
 import {UserInfoComponent} from "../user-info/user-info.component";
 import {Academic} from "../model/academic.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'user-list',
@@ -14,7 +15,7 @@ export class UserListComponent implements OnInit {
   totalUser: User[] = this.userService.getAllUsers();
   @ViewChild(UserInfoComponent) userInfoComponent!: UserInfoComponent;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -23,9 +24,11 @@ export class UserListComponent implements OnInit {
   updateUserEvent(i: number) {
     const user = this.userService.getAUser(i);
 
+    // this.router.navigate(['user-info'], { state: { user } });
+
     const newName = window.prompt('Name: ', user.name);
     const newEmail = window.prompt('Email: ', user.email);
-    window.prompt(JSON.stringify(user.academic));
+    // window.prompt(JSON.stringify(user.academic));
 
     user.name = newName;
     user.email = newEmail;

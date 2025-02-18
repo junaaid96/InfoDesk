@@ -1,9 +1,9 @@
-<div class="text-center">
+<div class="text-center mt-3">
   <p *ngIf="totalUser.length === 0">No user found!</p>
   <p *ngIf="totalUser.length > 0">Total User Found: {{ totalUser.length }}</p>
 </div>
 
-<table class="table mt-3" *ngIf="totalUser.length > 0">
+<table class="table mt-3 w-75 m-auto text-center border" *ngIf="totalUser.length > 0">
   <thead>
   <tr>
     <th>Name</th>
@@ -15,7 +15,7 @@
   <tr *ngFor="let user of totalUser; let i = index">
     <td>{{ user.name }}</td>
     <td>{{ user.email }}</td>
-    <td>
+    <td class="d-flex gap-2 align-content-center justify-content-center">
       <button type="button" class="btn btn-warning btn-sm" (click)="updateUserEvent(i)">Update
       </button>
       <button type="button" class="btn btn-danger btn-sm" (click)="removeUserEvent(i)">Delete</button>

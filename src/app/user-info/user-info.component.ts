@@ -4,6 +4,7 @@ import {Academic} from '../model/academic.model';
 import {Router} from '@angular/router';
 import {UserService} from "../user.service";
 import {User} from "../model/user.model";
+import {state} from "@angular/animations";
 
 @Component({
   selector: 'user-info',
@@ -20,6 +21,14 @@ export class UserInfoComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  // ngOnInit(): void {
+  //   const navigation = this.router.getCurrentNavigation();
+  //   const state = navigation?.extras.state as { user: User };
+  //   if (state && state.user) {
+  //     this.setUserForm(state.user);
+  //   }
+  // }
 
   userForm = new FormGroup({
     userName: new FormControl(),
@@ -62,4 +71,6 @@ export class UserInfoComponent implements OnInit {
 
     this.router.navigate(['user-list']);
   }
+
+  protected readonly state = state;
 }
