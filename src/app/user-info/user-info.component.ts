@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Academic} from '../model/academic.model';
 import {Router} from '@angular/router';
 import {UserService} from "../user.service";
@@ -29,8 +29,8 @@ export class UserInfoComponent implements OnInit {
   }
 
   userForm = new FormGroup({
-    userName: new FormControl(),
-    userEmail: new FormControl(),
+    userName: new FormControl('', [Validators.required]),
+    userEmail: new FormControl('', [Validators.required, Validators.email]),
     userAcademic: new FormArray([
       this.createUserAcademicForm()
     ])
@@ -50,35 +50,43 @@ export class UserInfoComponent implements OnInit {
 
   createUserAcademicForm(): FormGroup {
     return new FormGroup({
-      institute: new FormControl(),
-      department: new FormControl(),
-      cgpa: new FormControl()
+      institute: new FormControl(null, [Validators.required]),
+      department: new FormControl(null, [Validators.required]),
+      cgpa: new FormControl('', [Validators.required])
     });
   }
 
   submitForm() {
-    const formValue = this.userForm.value;
+    if (this.userForm.valid) {
+      const formValue = this.userForm.value;
 
-    const user = {
-      name: formValue.userName,
-      email: formValue.userEmail,
-      academic: formValue.userAcademic
-    };
+      const user = {
+        name: formValue.userName,
+        email: formValue.userEmail,
+        academic: formValue.userAcademic
+      };
 
-    this.userService.addUser(user);
-    this.router.navigate(['user-list']);
+      this.userService.addUser(user);
+      this.router.navigate(['user-list']);
+    } else {
+      console.log(this.userForm.controls)
+    }
   }
 
   updateForm() {
-    const formValue = this.userForm.value;
+    if (this.userForm.valid) {
+      const formValue = this.userForm.value;
 
-    const updatedUser = {
-      name: formValue.userName,
-      email: formValue.userEmail,
-      academic: formValue.userAcademic
-    };
+      const updatedUser = {
+        name: formValue.userName,
+        email: formValue.userEmail,
+        academic: formValue.userAcademic
+      };
 
-    this.userService.updateUser(this.userIndex, updatedUser);
-    this.router.navigate(['user-list']);
+      this.userService.updateUser(this.userIndex, updatedUser);
+      this.router.navigate(['user-list']);
+    } else {
+      console.log(this.userForm.controls)
+    }
   }
 }
